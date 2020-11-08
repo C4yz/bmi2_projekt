@@ -33,9 +33,24 @@ boxplot(D$logbmi, D$age, D$fastfood, names = c("Logbmi", "Age", "Fastfood"), out
 
 boxplot(D$logbmi, names = c("Logbmi"))
 
+#Tabel udregninger for log bmi
 sum(!is.na(D$logbmi))
-
 summary(D$logbmi)
+mean(D$logbmi, na.rm = TRUE)
+sd(D$logbmi)
+
+#Tabel udregning for Age
+sum(!is.na(D$age))
+mean(D$age)
+sd(D$age)
+summary(D$age)
+
+#Tabel udregning for fastfood
+sum(!is.na(D$fastfood))
+mean(D$fastfood, na.rm=TRUE)
+sd(D$fastfood)
+summary(D$fastfood)
+
 #######################################################################
 # Estimer multipel lineær regressionsmodel
 fit <- lm(logbmi ~ age + fastfood, data = D_model)
