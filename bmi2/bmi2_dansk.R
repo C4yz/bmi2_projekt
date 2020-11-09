@@ -22,11 +22,11 @@ hist(D$age, main = "Histogram Age", xlab = "Age", prob = TRUE)
 hist(D$fastfood, main = "Histogram Fastfood", xlab = "Fastfood", prob = TRUE)
 
 #Plot over Logbmi, fastfood og alder
-plot(D$logbmi, main = "Plot Logbmi", ylab = "Logbmi")
+plot(D$logbm ~ D$age)
+abline(lm(D$logbmi ~ D$age))
 
-plot(D$age, main = "Plot Age", ylab = "Age")
-
-plot(D$fastfood, main = "Plot Fastfood", ylab = "Fastfood")
+plot(D$logbmi ~D$fastfood)
+abline(lm(D$logbmi ~ D$fastfood))
 
 #Boxplot af logbmi, age og fastfood
 boxplot(D$logbmi, D$age, D$fastfood, names = c("Logbmi", "Age", "Fastfood"), outline = FALSE)
@@ -52,13 +52,15 @@ sd(D$fastfood)
 summary(D$fastfood)
 
 #######################################################################
+## Opgave C
 # Estimer multipel lineær regressionsmodel
 fit <- lm(logbmi ~ age + fastfood, data = D_model)
 
 # Vis estimerede parametre mm.
 summary(fit)
 
-
+######################################################################
+## Opgave d
 # Plots til modelkontrol
 
 # Observationer mod fittede værdier
@@ -66,8 +68,11 @@ plot(fit$fitted.values, D_model$logbmi, xlab = "Fittede værdier",
        ylab = "log(BMI)")
 
 # Residualer mod hver af de forklarende variable
-plot(D_model$FORKLARENDE_VARIABEL, fit$residuals, 
-        xlab = "INDSÆT TEKST", ylab = "Residualer")
+plot(D_model$age, fit$residuals, 
+        xlab = "Age", ylab = "Residualer")
+
+plot(D_model$fastfood, fit$residuals, 
+     xlab = "Fastfood", ylab = "Residualer")
 
 # Residualer mod fittede værdier
 plot(fit$fitted.values, fit$residuals, xlab = "Fittede værdier", 
@@ -78,6 +83,7 @@ qqnorm(fit$residuals, ylab = "Residualer", xlab = "Z-scores",
        main = "")
 qqline(fit$residuals)
 
+##################################################################
 
 # Konfidensintervaller for modellens koefficienter
 confint(fit, level = 0.95)
