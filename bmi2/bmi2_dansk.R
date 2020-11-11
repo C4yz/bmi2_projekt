@@ -84,15 +84,31 @@ qqnorm(fit$residuals, ylab = "Residualer", xlab = "Z-scores",
 qqline(fit$residuals)
 
 ##################################################################
+## Opgave e
+
+#95% fraktilen af t-fordelingen fro n=847
+qt(p=0.975, df=837)
 
 # Konfidensintervaller for modellens koefficienter
 confint(fit, level = 0.95)
 
+#################################################################
+##Opgave f
+step(fit, direction = "backward")
 
-# Prædiktioner og 95% prædiktionsintervaller
-pred <- predict(SLUTMODEL, newdata = D_test, interval = "prediction", 
-              level = 0.95)
+2*(1-pt(3.533162,837))
+#################################################################
+##Opgave h
+# Prædiktioner og 95% prædiktionsintervaller BMI
+pred <- exp(predict(fit, newdata = D_test, interval = "prediction", 
+              level = 0.95))
 
-# Observerede værdier sammen med prædiktioner
-cbind(id = D_test$id, logbmi = D_test$logbmi, pred)
+# Observerede værdier sammen med prædiktioner BMI
+cbind(id = D_test$id, bmi = D_test$bmi, pred)
+
+# Prædiktioner og 95% prædiktionsintervaller Log-BMI
+predLog <- predict(fit, newdata = D_test, interval = "prediction", 
+                    level = 0.95)
+# Observerede værdier sammen med prædiktioner Log-BMI
+cbind(id = D_test$id, bmi = D_test$bmi, predLog)
 
